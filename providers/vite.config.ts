@@ -12,6 +12,10 @@ export default defineConfig({
       exposes: {
         './Providers': './src/providers/Providers.tsx',
       },
+      remotes: {
+        store: 'http://localhost:3003/assets/remoteEntry.js',
+        theme: 'http://localhost:3004/assets/remoteEntry.js',
+      },
       shared: ['react', 'react-dom', 'redux', 'react-redux', '@reduxjs/toolkit', '@tanstack/react-query', 'styled-components', 'react-hook-form'],
     }),
   ],

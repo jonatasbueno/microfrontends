@@ -12,6 +12,11 @@ export default defineConfig({
       exposes: {
         './CrudApp': './src/App.tsx',
       },
+      remotes: {
+        state: 'http://localhost:3003/remoteEntry.js',
+        routing: 'http://localhost:3002/assets/remoteEntry.js',
+        theme: 'http://localhost:3004/assets/remoteEntry.js',
+      },
       shared: ['react', 'react-dom', 'react-redux', 'react-hook-form', 'styled-components'],
     }),
   ],
