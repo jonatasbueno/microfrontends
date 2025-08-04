@@ -1,0 +1,30 @@
+version: '3'
+services:
+  host:
+    build: ./host
+    ports:
+      - "3000:3000"
+  providers:
+    build: ./providers
+    ports:
+      - "3001:3001"
+  routing:
+    build: ./routing
+    ports:
+      - "3002:3002"
+  state:
+    build: ./state
+    ports:
+      - "3003:3003"
+  design-system:
+    build: ./design-system
+    ports:
+      - "3004:3004"
+  crud:
+    build: ./crud
+    ports:
+      - "3005:3005"
+  dashboard:
+    build: ./dashboard
+    ports:
+      - "3006:3006"
