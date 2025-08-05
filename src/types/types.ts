@@ -1,28 +1,11 @@
-export type Culture = {
-  id: string;
-  name: string;
-};
+import { z } from 'zod';
+import { CultureSchema, PropertySchema, ProducerSchema, CreateProducerSchema, UpdateProducerSchema } from '../services/schemas/producerSchemas';
 
-export type Property = {
-  id: string;
-  name: string;
-  city: string;
-  state: string;
-  totalArea: number;
-  arableArea: number;
-  vegetationArea: number;
-  cultures: Culture[];
-};
-
-export type Producer = {
-  id: string;
-  cpfOrCnpj: string;
-  name: string;
-  city: string;
-  state: string;
-  status: 'active' | 'inactive';
-  properties: Property[];
-};
+export type Culture = z.infer<typeof CultureSchema>;
+export type Property = z.infer<typeof PropertySchema>;
+export type Producer = z.infer<typeof ProducerSchema>;
+export type CreateProducer = z.infer<typeof CreateProducerSchema>;
+export type UpdateProducer = z.infer<typeof UpdateProducerSchema>;
 
 export type ProducersState = {
   producers: Producer[];
