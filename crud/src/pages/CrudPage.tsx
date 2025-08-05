@@ -1,4 +1,3 @@
-import React from 'react';
 import CrudForm from '../components/business/CrudForm';
 
 const CrudPage = () => (

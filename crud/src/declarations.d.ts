@@ -12,7 +12,7 @@ declare module 'state/store' {
   export default store;
 }
 
-declare module 'design-system/Theme' {
+declare module 'theme/Theme' {
   import { ComponentType } from 'react';
 
   const Theme: ComponentType;

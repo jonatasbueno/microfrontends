@@ -1,22 +1,21 @@
 import React from 'react';
-import { createRouter, RouterProvider } from '@tanstack/react-router';
+import { createRootRoute, createRoute, createRouter,  } from '@tanstack/react-router';
 
 const CrudPage = React.lazy(() => import('crud/CrudApp'));
 const DashboardPage = React.lazy(() => import('dashboard/Dashboard'));
 
-const routeTree = {
+const rootRoute = createRootRoute({
   component: CrudPage,
-  path: '/',
-  children: [
-    {
-      path: 'dashboard',
-      component: DashboardPage,
-    },
-  ],
-};
+});
 
-const router = createRouter({ routeTree });
+const dashboardRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: 'dashboard',
+  component: DashboardPage,
+});
 
-const Router = () => <RouterProvider router={router} />;
+const routeTree = rootRoute.addChildren([dashboardRoute]);
+
+export const Router = createRouter({ routeTree });
 
 export default Router;

@@ -9,11 +9,3 @@ declare module 'providers/Providers' {
   
   export default Providers;
 }
-
-declare module 'routing/Router' {
-  import { ComponentType } from 'react';
-
-  const Router: ComponentType;
-
-  export default Router;
-}

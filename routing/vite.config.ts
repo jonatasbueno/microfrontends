@@ -12,6 +12,10 @@ export default defineConfig({
       exposes: {
         './Router': './src/router/Router.tsx',
       },
+      remotes: {
+        crud: 'http://localhost:3005/remoteEntry.js',
+        dashboard: 'http://localhost:3006/remoteEntry.js',
+      },
       shared: ['react', 'react-dom', '@tanstack/react-router'],
     }),
   ],

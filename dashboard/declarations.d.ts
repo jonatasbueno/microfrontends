@@ -1,9 +1,3 @@
-declare module 'routing/Router' {
-  import { ComponentType } from 'react';
-  const Router: ComponentType;
-  export default Router;
-}
-
 declare module 'state/store' {
   import { Store } from 'redux';
 
@@ -12,7 +6,7 @@ declare module 'state/store' {
   export default store;
 }
 
-declare module 'design-system/Theme' {
+declare module 'theme/Theme' {
   import { ComponentType } from 'react';
 
   const Theme: ComponentType;

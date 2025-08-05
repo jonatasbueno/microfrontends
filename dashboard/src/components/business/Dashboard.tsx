@@ -1,8 +1,7 @@
-import React from 'react';
 import { useSelector } from 'react-redux';
 
 const Dashboard = () => {
-  const data = useSelector((state: any) => state);
+  const data = useSelector((state: unknown) => state);
 
   return (
     <div>
