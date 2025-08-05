@@ -2,7 +2,7 @@
 
 Construir um sistema para gerenciamento de **produtores rurais** e suas **propriedades**, com base em duas principais áreas funcionais:
 
-1. **CRUD de Produtores Rurais**
+1. **Criação, busca e leitura de Produtores Rurais**
 2. **Dashboard de Indicadores e Gráficos**
 
 O sistema deve ser escalável, permitir fácil manutenção e documentar de forma clara suas funcionalidades sem dependência de uma tecnologia específica.
