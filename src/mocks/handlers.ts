@@ -1,5 +1,6 @@
 
 import { http, HttpResponse } from 'msw';
+import type { Producer } from '../types/types';
 
 const producers: Producer[] = [
   {
