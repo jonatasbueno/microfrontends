@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router";
 import {
   Box,
   Text,
@@ -7,6 +8,7 @@ import {
   ButtonGroup,
   Flex,
   Table,
+  Button,
 } from "@chakra-ui/react";
 
 import { useProducers } from "@/hooks/useProducers";
@@ -26,6 +28,7 @@ export const HomePage: React.FC = () => {
     redirectDetails,
     setSearchTerm,
   } = useProducers();
+  const navigate = useNavigate();
 
   if (isLoading) {
     return <Loading />;
@@ -42,6 +45,12 @@ export const HomePage: React.FC = () => {
       <Text textStyle="2xl" mb={4}>
         Lista de Produtores
       </Text>
+
+      <Box bg="surface" p={4} borderRadius="md" shadow="sm" mb={6}>
+        <Button bg="primary.500" onClick={() => navigate("/dashboard")}>
+          Ir para o Dashboard
+        </Button>
+      </Box>
 
       <Flex
         bg={"white"}

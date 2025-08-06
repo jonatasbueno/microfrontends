@@ -138,7 +138,7 @@ export const DetailsPage: React.FC = () => {
           onClick: () => navigate(-1),
         }}
         secondary={{
-          title: "Entrar",
+          title: "Editar",
           onClick: () => console.log("Editar Produtor"),
         }}
       />
