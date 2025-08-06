@@ -1,69 +1,60 @@
-# React + TypeScript + Vite
+# Gerenciamento de Produtores Rurais
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este projeto é um sistema para gerenciamento de produtores rurais e suas propriedades, focado em oferecer uma interface intuitiva para o cadastro, busca e visualização de informações.
 
-Currently, two official plugins are available:
+## Funcionalidades
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Atualmente, o sistema oferece as seguintes funcionalidades:
 
-## Expanding the ESLint configuration
+### CRUD de Produtores
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+*   **Listagem de Produtores**: Exibe uma tabela (desktop) ou cards (mobile) com informações essenciais dos produtores (CPF/CNPJ, Nome, Cidade, Estado).
+*   **Busca de Produtores**: Campo de busca com debounce para filtrar produtores por nome ou CPF/CNPJ.
+*   **Visualização de Detalhes**: Ao clicar em um produtor, é possível ver seus dados cadastrais completos, propriedades rurais associadas e culturas plantadas em cada propriedade.
+*   **Cadastro de Produtor**: (A ser implementado)
+*   **Edição de Produtor**: (A ser implementado)
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Dashboard de Indicadores e Gráficos
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+*   (A ser implementado)
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Tecnologias Utilizadas
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+O projeto foi desenvolvido utilizando as seguintes tecnologias e bibliotecas:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+*   **React**: Biblioteca principal para construção da interface do usuário.
+*   **TypeScript**: Para tipagem estática, garantindo maior segurança e manutenibilidade do código.
+*   **Vite**: Ferramenta de build e desenvolvimento rápido.
+*   **Chakra UI**: Biblioteca de componentes para estilização e construção de UI, garantindo um design moderno e responsivo.
+*   **React Router**: Para gerenciamento de rotas na aplicação.
+*   **Redux Toolkit**: Para gerenciamento de estado global da aplicação.
+*   **TanStack Query**: Para gerenciamento de dados assíncronos e cache de requisições (utilizado no hook `useProducers`).
+*   **Axios**: Cliente HTTP para fazer requisições a APIs (atualmente substituído por mocks para desenvolvimento).
+*   **MirageJS**: Utilizado para simular a API RESTful em ambiente de desenvolvimento, permitindo o desenvolvimento frontend independente do backend.
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Como Rodar o Projeto
+
+Para configurar e rodar o projeto em sua máquina local, siga os passos abaixo:
+
+1.  **Clone o Repositório**:
+
+    ```bash
+    git clone <URL_DO_SEU_REPOSITORIO>
+    cd microfrontends
+    ```
+
+2.  **Instale as Dependências**:
+
+    ```bash
+    npm install
+    ```
+
+3.  **Inicie o Servidor de Desenvolvimento**:
+
+    ```bash
+    npm run dev
+    ```
+
+    O aplicativo estará disponível em `http://localhost:5173` (ou outra porta disponível).
+
+    **Nota**: O projeto utiliza mocks locais para simular as chamadas de API, então não é necessário um backend rodando para testar as funcionalidades atuais.
