@@ -21,12 +21,10 @@ O sistema deve ser escalável, permitir fácil manutenção e documentar de form
     * Nome do produtor.
     * Estado.
     * Cidade.
-    * Status (ativo/inativo).
   * Ações por item da lista:
 
     * **Ver detalhes**.
     * **Editar produtor**.
-    * **Ativar/Desativar produtor**.
 
 * **Cadastro de novo produtor**
 
@@ -67,9 +65,7 @@ O sistema deve ser escalável, permitir fácil manutenção e documentar de form
       * Safras e respectivas culturas.
     * Ações:
 
-      * Editar produtor.
-      * Adicionar/editar/remover propriedades.
-      * Adicionar culturas e safras.
+      * Editar produtor e suas proprieades assim como suas safras e culturas.
 
 ---
 

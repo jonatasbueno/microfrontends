@@ -20,7 +20,7 @@ const producersSlice = createSlice({
 
     addProducer: (
       state,
-      action: PayloadAction<Omit<Producer, "id" | "status" | "properties">>
+      action: PayloadAction<Omit<Producer, "id" | "properties">>
     ) => {
       if (
         state.producers.some((p) => p.cpfOrCnpj === action.payload.cpfOrCnpj)
@@ -137,6 +137,7 @@ const producersSlice = createSlice({
           prop.cultures.push({
             ...culture,
             id: `${propertyId}-${new Date().toISOString()}`,
+            year: new Date().getFullYear(), // Adiciona o ano atual
           });
       }
     },

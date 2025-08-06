@@ -3,11 +3,12 @@ import { z } from "zod";
 export const CultureSchema = z.object({
   id: z.string(),
   name: z.string(),
+  year: z.number(), // Nova propriedade para o ano da safra
 });
 
 export const PropertySchema = z.object({
   id: z.string(),
-  name: z.string(),
+  farmName: z.string(),
   city: z.string(),
   state: z.string(),
   totalArea: z.number(),
@@ -19,17 +20,10 @@ export const PropertySchema = z.object({
 export const ProducerSchema = z.object({
   id: z.string(),
   cpfOrCnpj: z.string(),
-  name: z.string(),
+  name: z.string(), // Nome do produtor
   city: z.string(),
   state: z.string(),
   properties: z.array(PropertySchema),
-});
-
-export const CreateProducerSchema = z.object({
-  cpfOrCnpj: z.string(),
-  name: z.string(),
-  city: z.string(),
-  state: z.string(),
 });
 
 export const UpdateProducerSchema = z.object({
@@ -37,6 +31,12 @@ export const UpdateProducerSchema = z.object({
   name: z.string().optional(),
   city: z.string().optional(),
   state: z.string().optional(),
-  status: z.enum(["active", "inactive"]).optional(),
   properties: z.array(PropertySchema).optional(),
+});
+
+export const CreateProducerSchema = z.object({
+  cpfOrCnpj: z.string(),
+  name: z.string(),
+  city: z.string(),
+  state: z.string(),
 });
