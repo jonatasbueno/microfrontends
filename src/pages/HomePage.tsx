@@ -57,6 +57,7 @@ export const HomePage: React.FC = () => {
           bg={"white"}
           direction="column"
           p={4}
+          gap={4}
           borderRadius="md"
           boxShadow="sm"
         >
@@ -98,22 +99,27 @@ export const HomePage: React.FC = () => {
               ))}
             </VStack>
           ) : (
-            <Table.Root size="md" variant="line">
+            <Table.Root
+              size="md"
+              variant="line"
+              borderStyle={"solid"}
+              borderWidth={"thin"}
+            >
               <Table.Header>
                 <Table.Row>
-                  <Table.ColumnHeader fontWeight={700} fontSize={"md"}>
+                  <Table.ColumnHeader fontWeight={700}>
                     CPF ou CNPJ
                   </Table.ColumnHeader>
-                  <Table.ColumnHeader fontWeight={700} fontSize={"md"}>
+                  <Table.ColumnHeader fontWeight={700}>
                     Nome do Produtor
                   </Table.ColumnHeader>
-                  <Table.ColumnHeader fontWeight={700} fontSize={"md"}>
+                  <Table.ColumnHeader fontWeight={700}>
                     Estado
                   </Table.ColumnHeader>
-                  <Table.ColumnHeader fontWeight={700} fontSize={"md"}>
+                  <Table.ColumnHeader fontWeight={700}>
                     Cidade
                   </Table.ColumnHeader>
-                  <Table.ColumnHeader fontWeight={700} fontSize={"md"}>
+                  <Table.ColumnHeader fontWeight={700}>
                     Ações
                   </Table.ColumnHeader>
                 </Table.Row>
