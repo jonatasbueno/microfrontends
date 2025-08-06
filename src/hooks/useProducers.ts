@@ -23,7 +23,7 @@ export const useProducers = () => {
 
   return {
     producers,
-    isLoadingProducers: isLoading,
+    isLoading,
     error: error?.message || null,
   };
 };

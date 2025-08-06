@@ -1,7 +1,7 @@
-import React from 'react';
-import { Box, Text } from '@chakra-ui/react';
+import React from "react";
+import { Box, Text } from "@chakra-ui/react";
 
-const DetailsPage: React.FC = () => {
+export const DetailsPage: React.FC = () => {
   return (
     <Box p={4}>
       <Text fontSize="2xl">Detalhes do Produtor</Text>
@@ -9,7 +9,4 @@ const DetailsPage: React.FC = () => {
       {/* Aqui você pode adicionar a lógica para exibir os detalhes de um produtor específico */}
     </Box>
   );
-  
 };
-
-export default DetailsPage;
