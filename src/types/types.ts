@@ -1,5 +1,11 @@
-import { z } from 'zod';
-import { CultureSchema, PropertySchema, ProducerSchema, CreateProducerSchema, UpdateProducerSchema } from '../services/schemas/producerSchemas';
+import { z } from "zod";
+import {
+  CultureSchema,
+  PropertySchema,
+  ProducerSchema,
+  CreateProducerSchema,
+  UpdateProducerSchema,
+} from "../services/schemas/producerSchemas";
 
 export type Culture = z.infer<typeof CultureSchema>;
 export type Property = z.infer<typeof PropertySchema>;
@@ -9,6 +15,4 @@ export type UpdateProducer = z.infer<typeof UpdateProducerSchema>;
 
 export type ProducersState = {
   producers: Producer[];
-  status: 'idle' | 'loading' | 'succeeded' | 'failed';
-  error: string | null;
 };

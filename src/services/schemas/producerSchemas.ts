@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from "zod";
 
 export const CultureSchema = z.object({
   id: z.string(),
@@ -22,7 +22,6 @@ export const ProducerSchema = z.object({
   name: z.string(),
   city: z.string(),
   state: z.string(),
-  status: z.enum(['active', 'inactive']),
   properties: z.array(PropertySchema),
 });
 
@@ -38,6 +37,6 @@ export const UpdateProducerSchema = z.object({
   name: z.string().optional(),
   city: z.string().optional(),
   state: z.string().optional(),
-  status: z.enum(['active', 'inactive']).optional(),
+  status: z.enum(["active", "inactive"]).optional(),
   properties: z.array(PropertySchema).optional(),
 });
