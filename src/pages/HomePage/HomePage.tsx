@@ -67,31 +67,36 @@ export const HomePage: React.FC = () => {
           <>
             {isMobile ? (
               <VStack gap={4} align="stretch">
-                {filteredProducers.map((producer) => (
-                  <Card.Root key={producer.id}>
-                    <Card.Body>
-                      <Card.Title>{producer.name}</Card.Title>
-                      <Card.Description>
-                        CPF/CNPJ: {formatCpfCnpj(producer.cpfOrCnpj)}
-                      </Card.Description>
-                      <Card.Description>
-                        Cidade: {producer.city}
-                      </Card.Description>
-                      <Card.Description>
-                        Estado: {producer.state}
-                      </Card.Description>
-                      <Card.Description>
-                        Propriedades: {producer.properties.length}
-                      </Card.Description>
-                    </Card.Body>
-                    <Separator size="sm" my={4} />
-                    <ButtonGroup gap={2} p={4}>
-                      <EyeButton
-                        handleClick={() => redirectDetails(producer.id)}
-                      />
-                    </ButtonGroup>
-                  </Card.Root>
-                ))}
+                {filteredProducers.map((producer) => {
+                  const { type, value } = formatCpfCnpj(producer.cpfOrCnpj);
+
+                  return (
+                    <Card.Root key={producer.id}>
+                      <Card.Body>
+                        <Card.Title>{producer.name}</Card.Title>
+                        <Card.Description>
+                          {type === "CNPJ" ? "CNPJ" : "CPF"}: {value}
+                        </Card.Description>
+                        <Card.Description>
+                          Cidade: {producer.city}
+                        </Card.Description>
+                        <Card.Description>
+                          Estado: {producer.state}
+                        </Card.Description>
+                        <Card.Description>
+                          Propriedades: {producer.properties.length}
+                        </Card.Description>
+                      </Card.Body>
+                      <Separator size="sm" my={4} />
+                      <ButtonGroup gap={2} p={4}>
+                        <EyeButton
+                          handleClick={() => redirectDetails(producer.id)}
+                          width="100%"
+                        />
+                      </ButtonGroup>
+                    </Card.Root>
+                  );
+                })}
               </VStack>
             ) : (
               <Table.Root
@@ -123,7 +128,7 @@ export const HomePage: React.FC = () => {
                   {filteredProducers.map((producer) => (
                     <Table.Row key={producer.id}>
                       <Table.Cell>
-                        {formatCpfCnpj(producer.cpfOrCnpj)}
+                        {formatCpfCnpj(producer.cpfOrCnpj).value}
                       </Table.Cell>
                       <Table.Cell>{producer.name}</Table.Cell>
                       <Table.Cell>{producer.state}</Table.Cell>
