@@ -8,7 +8,7 @@ import { Provider } from "react-redux";
 
 import { store } from "@/store/GlobalStore.ts";
 import { App } from "@/App.tsx";
-import { HomePage } from "@/pages/HomePage.tsx";
+import { HomePage } from "@/pages/HomePage/HomePage";
 import { DetailsPage } from "@/pages/DetailsPage";
 import { Layout } from "@/components/container/Layout";
 
