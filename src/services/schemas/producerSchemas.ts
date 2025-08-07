@@ -40,3 +40,15 @@ export const CreateProducerSchema = z.object({
   city: z.string(),
   state: z.string(),
 });
+
+export const ProducerFormSchema = z.object({
+  cpfOrCnpj: z.string()
+    .min(1, "CPF/CNPJ é obrigatório")
+    .refine(value => {
+      const cleaned = value.replace(/\D/g, '');
+      return cleaned.length === 11 || cleaned.length === 14;
+    }, "CPF/CNPJ inválido"),
+  name: z.string().min(1, "Nome é obrigatório"),
+  city: z.string().min(1, "Cidade é obrigatória"),
+  state: z.string().min(1, "Estado é obrigatório"),
+});

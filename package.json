@@ -10,12 +10,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@chakra-ui/form-control": "^2.2.0",
     "@chakra-ui/react": "^3.24.1",
     "@emotion/react": "^11.14.0",
     "@faker-js/faker": "^9.9.0",
     "@fortawesome/fontawesome-svg-core": "^7.0.0",
     "@fortawesome/free-solid-svg-icons": "^7.0.0",
     "@fortawesome/react-fontawesome": "^0.2.3",
+    "@hookform/resolvers": "^5.2.1",
     "@nivo/core": "^0.99.0",
     "@nivo/pie": "^0.99.0",
     "@reduxjs/toolkit": "^2.8.2",
@@ -24,16 +26,18 @@
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-hook-form": "^7.62.0",
+    "react-input-mask": "^2.0.4",
     "react-redux": "^9.2.0",
     "react-router": "^7.7.1",
     "redux": "^5.0.1",
-    "zod": "^4.0.14"
+    "zod": "^4.0.15"
   },
   "devDependencies": {
     "@eslint/js": "^9.30.1",
     "@tanstack/eslint-plugin-query": "^5.83.1",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
+    "@types/react-input-mask": "^3.0.6",
     "@vitejs/plugin-react-swc": "^3.10.2",
     "eslint": "^9.30.1",
     "eslint-plugin-react-hooks": "^5.2.0",

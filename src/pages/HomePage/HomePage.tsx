@@ -9,6 +9,7 @@ import {
   Flex,
   Table,
   Button,
+  useDisclosure,
 } from "@chakra-ui/react";
 
 import { useProducers } from "@/hooks/useProducers";
@@ -17,6 +18,7 @@ import { Loading } from "@/components/ui/Loading/loading";
 import { AlertCustom } from "@/components/ui/Alert/alert";
 import { InputCustom } from "@/components/ui/Input/input";
 import { EyeButton } from "./components/EyeButton";
+import { ProducerFormModal } from "@/components/container/ProducerFormModal";
 
 export const HomePage: React.FC = () => {
   const {
@@ -29,6 +31,7 @@ export const HomePage: React.FC = () => {
     setSearchTerm,
   } = useProducers();
   const navigate = useNavigate();
+  const { open, onOpen, onClose } = useDisclosure();
 
   if (isLoading) {
     return <Loading />;
@@ -47,9 +50,14 @@ export const HomePage: React.FC = () => {
       </Text>
 
       <Box bg="surface" p={4} borderRadius="md" shadow="sm" mb={6}>
-        <Button bg="primary.500" onClick={() => navigate("/dashboard")}>
-          Ir para o Dashboard
-        </Button>
+        <Flex justifyContent="space-between">
+          <Button colorScheme="primary" onClick={() => navigate("/dashboard")}>
+            Ir para o Dashboard
+          </Button>
+          <Button colorScheme="primary" onClick={onOpen}>
+            Cadastrar Produtor
+          </Button>
+        </Flex>
       </Box>
 
       <Flex
@@ -155,6 +163,8 @@ export const HomePage: React.FC = () => {
           </>
         )}
       </Flex>
+
+      <ProducerFormModal isOpen={open} onClose={onClose} />
     </>
   );
 };

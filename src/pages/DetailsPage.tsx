@@ -11,11 +11,14 @@ import { useParams, useNavigate } from "react-router";
 import { useSelector } from "react-redux";
 import { type RootState } from "@/store/GlobalStore";
 import { formatCpfCnpj } from "../utils/functions/formatCpfCnpj";
+import { useDisclosure } from "@chakra-ui/react";
 import { PairButton } from "@/components/ui/PairButton/PairButton";
+import { ProducerFormModal } from "@/components/container/ProducerFormModal";
 
 export const DetailsPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const { open, onOpen, onClose } = useDisclosure();
   const { producers } = useSelector((state: RootState) => state.producers);
   const producer = producers.find((p) => p.id === id)!;
 
@@ -139,9 +142,11 @@ export const DetailsPage: React.FC = () => {
         }}
         secondary={{
           title: "Editar",
-          onClick: () => console.log("Editar Produtor"),
+          onClick: onOpen,
         }}
       />
+
+      <ProducerFormModal isOpen={open} onClose={onClose} producer={producer} />
     </Box>
   );
 };
