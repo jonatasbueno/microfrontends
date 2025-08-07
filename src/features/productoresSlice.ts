@@ -20,7 +20,7 @@ const producersSlice = createSlice({
 
     addProducer: (
       state,
-      action: PayloadAction<Omit<Producer, "id" | "properties">>
+      action: PayloadAction<Omit<Producer, "id"> & { properties: Omit<Property, "id">[] }>
     ) => {
       if (
         state.producers.some((p) => p.cpfOrCnpj === action.payload.cpfOrCnpj)
@@ -32,8 +32,15 @@ const producersSlice = createSlice({
 
       const newProducer: Producer = {
         ...action.payload,
-        id: action.payload.cpfOrCnpj,
-        properties: [],
+        id: `prod-${Date.now()}`,
+        properties: action.payload.properties.map(prop => ({
+          ...prop,
+          id: `prop-${Date.now()}-${Math.random().toString(36).substring(7)}`,
+          cultures: prop.cultures.map(cult => ({
+            ...cult,
+            id: `cult-${Date.now()}-${Math.random().toString(36).substring(7)}`,
+          }))
+        }))
       };
 
       state.producers.push(newProducer);
@@ -47,9 +54,25 @@ const producersSlice = createSlice({
       const producerIndex = state.producers.findIndex((p) => p.id === id);
 
       if (producerIndex !== -1) {
+        const updatedProperties = data.properties?.map(prop => {
+          if (prop.id) return prop; // Existing property
+          return {
+            ...prop,
+            id: `prop-${Date.now()}-${Math.random().toString(36).substring(7)}`,
+            cultures: prop.cultures.map(cult => {
+              if (cult.id) return cult; // Existing culture
+              return {
+                ...cult,
+                id: `cult-${Date.now()}-${Math.random().toString(36).substring(7)}`,
+              };
+            })
+          };
+        });
+
         state.producers[producerIndex] = {
           ...state.producers[producerIndex],
           ...data,
+          properties: updatedProperties || state.producers[producerIndex].properties,
         };
       }
     },

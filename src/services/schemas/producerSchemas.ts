@@ -3,7 +3,7 @@ import { z } from "zod";
 export const CultureSchema = z.object({
   id: z.string(),
   name: z.string(),
-  year: z.number(), // Nova propriedade para o ano da safra
+  year: z.number(),
 });
 
 export const PropertySchema = z.object({
@@ -20,7 +20,7 @@ export const PropertySchema = z.object({
 export const ProducerSchema = z.object({
   id: z.string(),
   cpfOrCnpj: z.string(),
-  name: z.string(), // Nome do produtor
+  name: z.string(),
   city: z.string(),
   state: z.string(),
   properties: z.array(PropertySchema),
@@ -41,14 +41,42 @@ export const CreateProducerSchema = z.object({
   state: z.string(),
 });
 
+export const CultureFormSchema = z.object({
+  name: z.string().min(1, "Nome da cultura é obrigatório"),
+  year: z
+    .number()
+    .min(1900, "Ano inválido")
+    .max(new Date().getFullYear(), "Ano inválido"),
+});
+
+export const PropertyFormSchema = z
+  .object({
+    farmName: z.string().min(1, "Nome da fazenda é obrigatório"),
+    city: z.string().min(1, "Cidade é obrigatória"),
+    state: z.string().min(1, "Estado é obrigatório"),
+    totalArea: z.number().min(0.01, "Área total deve ser maior que zero"),
+    arableArea: z.number().min(0, "Área agricultável não pode ser negativa"),
+    vegetationArea: z
+      .number()
+      .min(0, "Área de vegetação não pode ser negativa"),
+    cultures: z.array(CultureFormSchema),
+  })
+  .refine((data) => data.arableArea + data.vegetationArea <= data.totalArea, {
+    message:
+      "A soma da área agricultável e de vegetação não pode exceder a área total da propriedade.",
+    path: ["arableArea"],
+  });
+
 export const ProducerFormSchema = z.object({
-  cpfOrCnpj: z.string()
+  cpfOrCnpj: z
+    .string()
     .min(1, "CPF/CNPJ é obrigatório")
-    .refine(value => {
-      const cleaned = value.replace(/\D/g, '');
+    .refine((value) => {
+      const cleaned = value.replace(/\D/g, "");
       return cleaned.length === 11 || cleaned.length === 14;
     }, "CPF/CNPJ inválido"),
   name: z.string().min(1, "Nome é obrigatório"),
   city: z.string().min(1, "Cidade é obrigatória"),
   state: z.string().min(1, "Estado é obrigatório"),
+  properties: z.array(PropertyFormSchema),
 });
