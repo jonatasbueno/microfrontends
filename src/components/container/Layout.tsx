@@ -9,7 +9,7 @@ type LayoutProps = {
 
 export const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
-    <Flex direction="column" minH="100vh" bg="background">
+    <Flex direction="column" minH="100vh" bg="gray.100">
       <Box
         as="header"
         bg={colors.backgroundPrimary}
@@ -24,7 +24,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
           <Spacer />
         </Flex>
       </Box>
-      <Box as="main" flex="1" p={4}>
+      <Box as="main" bg="" flex="1" p={4}>
         {children}
       </Box>
     </Flex>

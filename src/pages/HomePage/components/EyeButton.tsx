@@ -1,6 +1,8 @@
-import { Button, type ButtonProps } from "@chakra-ui/react/button";
-import { faEye } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Button, type ButtonProps } from '@chakra-ui/react/button';
+import { faEye } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+import { colors } from '@/styles';
 
 type EyeButtonProps = ButtonProps & {
   handleClick: () => void;
@@ -8,13 +10,8 @@ type EyeButtonProps = ButtonProps & {
 
 export function EyeButton({ handleClick, ...props }: EyeButtonProps) {
   return (
-    <Button
-      bg="primary.500"
-      {...props}
-      onClick={handleClick}
-      borderRadius={"full"}
-    >
-      <FontAwesomeIcon icon={faEye} />
+    <Button bg={colors.backgroundPrimary} {...props} onClick={handleClick}>
+      Ver detalhes <FontAwesomeIcon icon={faEye} />
     </Button>
   );
 }

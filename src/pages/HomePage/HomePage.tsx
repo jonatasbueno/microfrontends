@@ -1,11 +1,10 @@
+import { Fragment } from 'react';
 import { useNavigate } from 'react-router';
 import {
   Box,
   Text,
   VStack,
   Card,
-  Separator,
-  ButtonGroup,
   Flex,
   Table,
   Button,
@@ -21,6 +20,7 @@ import { AlertCustom } from '@/components/ui/Alert/alert';
 import { InputCustom } from '@/components/ui/Input/input';
 import { EyeButton } from './components/EyeButton';
 import { ProducerFormModal } from '@/components/container/ProducerFormModal';
+import { colors } from '@/styles';
 
 export const HomePage: React.FC = () => {
   const {
@@ -47,23 +47,37 @@ export const HomePage: React.FC = () => {
 
   return (
     <>
-      <Text textStyle="2xl" mb={4}>
+      <Text as={'h1'} textStyle="3xl" mb={4}>
         Lista de Produtores
       </Text>
 
-      <Box bg="surface" p={4} borderRadius="md" shadow="sm" mb={6}>
-        <Flex justifyContent="space-between">
-          <Button colorScheme="primary" onClick={() => navigate('/dashboard')}>
-            Ir para o Dashboard <FontAwesomeIcon icon={faChartPie} />
+      <Box bg="white" p={4} borderRadius="md" shadow="sm" mb={4}>
+        <Flex
+          flexDirection={isMobile ? 'column' : 'row'}
+          gap={4}
+          justifyContent={'space-between'}
+        >
+          <Button
+            bg={colors.backgroundPrimary}
+            onClick={() => navigate('/dashboard')}
+            width={isMobile ? '100%' : 'auto'}
+          >
+            <Text>Ir para o Dashboard </Text>
+            <FontAwesomeIcon icon={faChartPie} />
           </Button>
-          <Button colorScheme="primary" onClick={onOpen}>
-            Cadastrar Produtor <FontAwesomeIcon icon={faPlus} />
+
+          <Button
+            bg={colors.backgroundPrimary}
+            onClick={onOpen}
+            width={isMobile ? '100%' : 'auto'}
+          >
+            <Text>Cadastrar Produtor </Text> <FontAwesomeIcon icon={faPlus} />
           </Button>
         </Flex>
       </Box>
 
       <Flex
-        bg={'white'}
+        bg="white"
         direction="column"
         p={4}
         gap={4}
@@ -85,35 +99,36 @@ export const HomePage: React.FC = () => {
         {filteredProducers.length > 0 && (
           <>
             {isMobile ? (
-              <VStack gap={4} align="stretch">
+              <VStack gap={4}>
                 {filteredProducers.map((producer) => {
                   const { type, value } = formatCpfCnpj(producer.cpfOrCnpj);
 
                   return (
-                    <Card.Root key={producer.id}>
-                      <Card.Body>
-                        <Card.Title>{producer.name}</Card.Title>
-                        <Card.Description>
-                          {type === 'CNPJ' ? 'CNPJ' : 'CPF'}: {value}
-                        </Card.Description>
-                        <Card.Description>
-                          Cidade: {producer.city}
-                        </Card.Description>
-                        <Card.Description>
-                          Estado: {producer.state}
-                        </Card.Description>
-                        <Card.Description>
-                          Propriedades: {producer.properties.length}
-                        </Card.Description>
-                      </Card.Body>
-                      <Separator size="sm" my={4} />
-                      <ButtonGroup gap={2} p={4}>
-                        <EyeButton
-                          handleClick={() => redirectDetails(producer.id)}
-                          width="100%"
-                        />
-                      </ButtonGroup>
-                    </Card.Root>
+                    <Fragment key={producer.id}>
+                      <Card.Root bg="blue.50" width="full">
+                        <Card.Body p={4}>
+                          <Card.Title>{producer.name}</Card.Title>
+                          <Card.Description>
+                            {type === 'CNPJ' ? 'CNPJ' : 'CPF'}: {value}
+                          </Card.Description>
+                          <Card.Description>
+                            Cidade: {producer.city}
+                          </Card.Description>
+                          <Card.Description>
+                            Estado: {producer.state}
+                          </Card.Description>
+                          <Card.Description>
+                            Propriedades: {producer.properties.length}
+                          </Card.Description>
+                        </Card.Body>
+                        <Card.Footer pb={4} px={4}>
+                          <EyeButton
+                            handleClick={() => redirectDetails(producer.id)}
+                            width="100%"
+                          />
+                        </Card.Footer>
+                      </Card.Root>
+                    </Fragment>
                   );
                 })}
               </VStack>
@@ -152,7 +167,7 @@ export const HomePage: React.FC = () => {
                       <Table.Cell>{producer.name}</Table.Cell>
                       <Table.Cell>{producer.state}</Table.Cell>
                       <Table.Cell>{producer.city}</Table.Cell>
-                      <Table.Cell>
+                      <Table.Cell display={'flex'} justifyContent={'flex-end'}>
                         <EyeButton
                           handleClick={() => redirectDetails(producer.id)}
                         />
