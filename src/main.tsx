@@ -1,24 +1,24 @@
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
-import { BrowserRouter, Route, Routes } from "react-router";
-import { ChakraProvider } from "@chakra-ui/react";
-import { systemTheme } from "./styles/theme";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { Provider } from "react-redux";
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import { BrowserRouter, Route, Routes } from 'react-router';
+import { ChakraProvider, createSystem, defaultConfig } from '@chakra-ui/react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { Provider } from 'react-redux';
 
-import { store } from "@/store/GlobalStore.ts";
-import { HomePage } from "@/pages/HomePage/HomePage";
-import { DetailsPage } from "@/pages/DetailsPage";
-import { Layout } from "@/components/container/Layout";
-import { DashboardPage } from "@/pages/DashboardPage";
+import { store } from '@/store/GlobalStore.ts';
+import { HomePage } from '@/pages/HomePage/HomePage';
+import { DetailsPage } from '@/pages/DetailsPage';
+import { Layout } from '@/components/container/Layout';
+import { DashboardPage } from '@/pages/DashboardPage';
 
 const queryClient = new QueryClient();
+export const chakraSystem = createSystem(defaultConfig, {});
 
-createRoot(document.getElementById("root")!).render(
+createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
       <Provider store={store}>
-        <ChakraProvider value={systemTheme}>
+        <ChakraProvider value={chakraSystem}>
           <BrowserRouter>
             <Layout>
               <Routes>
@@ -31,5 +31,5 @@ createRoot(document.getElementById("root")!).render(
         </ChakraProvider>
       </Provider>
     </QueryClientProvider>
-  </StrictMode>
+  </StrictMode>,
 );

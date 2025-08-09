@@ -1,6 +1,8 @@
 import React from 'react';
 import { Box, Flex, Text, Spacer } from '@chakra-ui/react';
 
+import { colors } from '@/styles';
+
 type LayoutProps = {
   children: React.ReactNode;
 };
@@ -8,10 +10,16 @@ type LayoutProps = {
 export const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <Flex direction="column" minH="100vh" bg="background">
-      <Box as="header" bg="primary.500" color="white" p={4} shadow="md">
+      <Box
+        as="header"
+        bg={colors.backgroundPrimary}
+        color="white"
+        p={4}
+        shadow="md"
+      >
         <Flex align="center">
           <Text fontSize="xl" fontWeight="bold">
-            Gerenciamento de Produtores
+            Carteira de Produtores
           </Text>
           <Spacer />
         </Flex>

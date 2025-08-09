@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router";
+import { useNavigate } from 'react-router';
 import {
   Box,
   Text,
@@ -10,17 +10,17 @@ import {
   Table,
   Button,
   useDisclosure,
-} from "@chakra-ui/react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChartPie, faPlus } from "@fortawesome/free-solid-svg-icons";
+} from '@chakra-ui/react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChartPie, faPlus } from '@fortawesome/free-solid-svg-icons';
 
-import { useProducers } from "@/hooks/useProducers";
-import { formatCpfCnpj } from "@/utils/functions/formatCpfCnpj";
-import { Loading } from "@/components/ui/Loading/loading";
-import { AlertCustom } from "@/components/ui/Alert/alert";
-import { InputCustom } from "@/components/ui/Input/input";
-import { EyeButton } from "./components/EyeButton";
-import { ProducerFormModal } from "@/components/container/ProducerFormModal";
+import { useProducers } from '@/hooks/useProducers';
+import { formatCpfCnpj } from '@/utils/functions/formatCpfCnpj';
+import { Loading } from '@/components/ui/Loading/loading';
+import { AlertCustom } from '@/components/ui/Alert/alert';
+import { InputCustom } from '@/components/ui/Input/input';
+import { EyeButton } from './components/EyeButton';
+import { ProducerFormModal } from '@/components/container/ProducerFormModal';
 
 export const HomePage: React.FC = () => {
   const {
@@ -53,25 +53,17 @@ export const HomePage: React.FC = () => {
 
       <Box bg="surface" p={4} borderRadius="md" shadow="sm" mb={6}>
         <Flex justifyContent="space-between">
-          <Button
-            colorScheme="primary"
-            onClick={() => navigate("/dashboard")}
-            leftIcon={<FontAwesomeIcon icon={faChartPie} />}
-          >
-            Ir para o Dashboard
+          <Button colorScheme="primary" onClick={() => navigate('/dashboard')}>
+            Ir para o Dashboard <FontAwesomeIcon icon={faChartPie} />
           </Button>
-          <Button
-            colorScheme="primary"
-            onClick={onOpen}
-            leftIcon={<FontAwesomeIcon icon={faPlus} />}
-          >
-            Cadastrar Produtor
+          <Button colorScheme="primary" onClick={onOpen}>
+            Cadastrar Produtor <FontAwesomeIcon icon={faPlus} />
           </Button>
         </Flex>
       </Box>
 
       <Flex
-        bg={"white"}
+        bg={'white'}
         direction="column"
         p={4}
         gap={4}
@@ -102,7 +94,7 @@ export const HomePage: React.FC = () => {
                       <Card.Body>
                         <Card.Title>{producer.name}</Card.Title>
                         <Card.Description>
-                          {type === "CNPJ" ? "CNPJ" : "CPF"}: {value}
+                          {type === 'CNPJ' ? 'CNPJ' : 'CPF'}: {value}
                         </Card.Description>
                         <Card.Description>
                           Cidade: {producer.city}
@@ -129,8 +121,8 @@ export const HomePage: React.FC = () => {
               <Table.Root
                 size="md"
                 variant="line"
-                borderStyle={"solid"}
-                borderWidth={"thin"}
+                borderStyle={'solid'}
+                borderWidth={'thin'}
               >
                 <Table.Header>
                   <Table.Row>
