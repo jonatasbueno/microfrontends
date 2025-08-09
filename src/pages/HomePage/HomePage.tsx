@@ -11,6 +11,8 @@ import {
   Button,
   useDisclosure,
 } from "@chakra-ui/react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChartPie, faPlus } from "@fortawesome/free-solid-svg-icons";
 
 import { useProducers } from "@/hooks/useProducers";
 import { formatCpfCnpj } from "@/utils/functions/formatCpfCnpj";
@@ -51,10 +53,18 @@ export const HomePage: React.FC = () => {
 
       <Box bg="surface" p={4} borderRadius="md" shadow="sm" mb={6}>
         <Flex justifyContent="space-between">
-          <Button colorScheme="primary" onClick={() => navigate("/dashboard")}>
+          <Button
+            colorScheme="primary"
+            onClick={() => navigate("/dashboard")}
+            leftIcon={<FontAwesomeIcon icon={faChartPie} />}
+          >
             Ir para o Dashboard
           </Button>
-          <Button colorScheme="primary" onClick={onOpen}>
+          <Button
+            colorScheme="primary"
+            onClick={onOpen}
+            leftIcon={<FontAwesomeIcon icon={faPlus} />}
+          >
             Cadastrar Produtor
           </Button>
         </Flex>

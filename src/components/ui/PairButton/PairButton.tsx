@@ -1,6 +1,8 @@
 import { Box } from "@chakra-ui/react/box";
 import { Button } from "@chakra-ui/react/button";
 import { Flex } from "@chakra-ui/react/flex";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft, faEdit } from "@fortawesome/free-solid-svg-icons";
 
 type ButtonProps = {
   title: string;
@@ -21,10 +23,15 @@ export function PairButton({ primary, secondary }: PairButtonProps) {
           color="primary.500"
           borderColor="primary.500"
           onClick={primary.onClick}
+          leftIcon={<FontAwesomeIcon icon={faArrowLeft} />}
         >
           {primary.title}
         </Button>
-        <Button bg="primary.500" onClick={secondary.onClick}>
+        <Button
+          bg="primary.500"
+          onClick={secondary.onClick}
+          leftIcon={<FontAwesomeIcon icon={faEdit} />}
+        >
           {secondary.title}
         </Button>
       </Flex>

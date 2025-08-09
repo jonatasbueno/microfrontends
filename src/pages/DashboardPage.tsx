@@ -7,6 +7,9 @@ import {
   Heading,
   Button,
   Flex,
+  Select,
+  Card,
+  CardBody,
 } from "@chakra-ui/react";
 import { ResponsivePie, type PieSvgProps } from "@nivo/pie";
 import { useNavigate } from "react-router";
@@ -20,6 +23,15 @@ export const DashboardPage: React.FC = () => {
     pieDataState,
     pieDataCulture,
     pieDataLandUse,
+    filterByCrop,
+    setFilterByCrop,
+    filterByState,
+    setFilterByState,
+    filterByCulture,
+    setFilterByCulture,
+    availableCrops,
+    availableStates,
+    availableCultures,
   } = useDashboard();
   const navigate = useNavigate();
 
@@ -102,29 +114,77 @@ export const DashboardPage: React.FC = () => {
         Dashboard de Indicadores
       </Heading>
 
+      <SimpleGrid columns={{ base: 1, md: 3 }} spacing={4} mb={6}>
+        <Card bg="blue.50" p={6} borderRadius="md" shadow="sm">
+          <CardBody>
+            <Text fontSize="lg" fontWeight="bold" mb={2}>
+              Total de Produtores
+            </Text>
+            <Text fontSize="4xl" fontWeight="extrabold">
+              {totalProducers}
+            </Text>
+          </CardBody>
+        </Card>
+        <Card bg="green.50" p={6} borderRadius="md" shadow="sm">
+          <CardBody>
+            <Text fontSize="lg" fontWeight="bold" mb={2}>
+              Total de Fazendas
+            </Text>
+            <Text fontSize="4xl" fontWeight="extrabold">
+              {totalFarms}
+            </Text>
+          </CardBody>
+        </Card>
+        <Card bg="purple.50" p={6} borderRadius="md" shadow="sm">
+          <CardBody>
+            <Text fontSize="lg" fontWeight="bold" mb={2}>
+              Total de Hectares Registrados
+            </Text>
+            <Text fontSize="4xl" fontWeight="extrabold">
+              {totalHectares.toFixed(2)} ha
+            </Text>
+          </CardBody>
+        </Card>
+      </SimpleGrid>
+
       <Box bg="surface" p={6} borderRadius="md" shadow="sm" mb={6}>
         <Heading as="h2" size="lg" mb={4}>
-          Indicadores Principais
+          Filtros
         </Heading>
-        <SimpleGrid columns={{ base: 1, md: 3 }}>
-          <Text>
-            <Text as="span" fontWeight="bold">
-              Total de Produtores:
-            </Text>{" "}
-            {totalProducers}
-          </Text>
-          <Text>
-            <Text as="span" fontWeight="bold">
-              Total de Fazendas:
-            </Text>{" "}
-            {totalFarms}
-          </Text>
-          <Text>
-            <Text as="span" fontWeight="bold">
-              Total de Hectares Registrados:
-            </Text>{" "}
-            {totalHectares.toFixed(2)} ha
-          </Text>
+        <SimpleGrid columns={{ base: 1, md: 3 }} spacing={4}>
+          <Select
+            placeholder="Filtrar por Safra"
+            value={filterByCrop || ""}
+            onChange={(e) => setFilterByCrop(e.target.value || null)}
+          >
+            {availableCrops.map((crop) => (
+              <option key={crop} value={crop}>
+                {crop}
+              </option>
+            ))}
+          </Select>
+          <Select
+            placeholder="Filtrar por Estado"
+            value={filterByState || ""}
+            onChange={(e) => setFilterByState(e.target.value || null)}
+          >
+            {availableStates.map((state) => (
+              <option key={state} value={state}>
+                {state}
+              </option>
+            ))}
+          </Select>
+          <Select
+            placeholder="Filtrar por Cultura"
+            value={filterByCulture || ""}
+            onChange={(e) => setFilterByCulture(e.target.value || null)}
+          >
+            {availableCultures.map((culture) => (
+              <option key={culture} value={culture}>
+                {culture}
+              </option>
+            ))}
+          </Select>
         </SimpleGrid>
       </Box>
 
