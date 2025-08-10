@@ -153,7 +153,7 @@ export const HomePage: React.FC = () => {
                     <Table.ColumnHeader fontWeight={700}>
                       Cidade
                     </Table.ColumnHeader>
-                    <Table.ColumnHeader fontWeight={700}>
+                    <Table.ColumnHeader fontWeight={700} width={170}>
                       Ações
                     </Table.ColumnHeader>
                   </Table.Row>

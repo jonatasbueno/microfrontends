@@ -1,3 +1,8 @@
+import type { RootState } from '@/store/GlobalStore';
+import { createListCollection } from '@chakra-ui/react/collection';
+import { useMemo, useState } from 'react';
+import { useSelector } from 'react-redux';
+
 /**
  * @typedef {object} DashboardData
  * @property {number} totalProducers - Número total de produtores.
@@ -39,23 +44,27 @@ export const useDashboard = () => {
 
     if (filterByCrop) {
       filtered = filtered.filter((producer) =>
-        producer.properties.some((prop) =>
-          prop.cultures.some((culture) => culture.year.toString() === filterByCrop)
-        )
+        producer.properties.some((property) =>
+          property.cultures.some(
+            (culture) => culture.year.toString() === filterByCrop,
+          ),
+        ),
       );
     }
 
     if (filterByState) {
       filtered = filtered.filter((producer) =>
-        producer.properties.some((prop) => prop.state === filterByState)
+        producer.properties.some(
+          (property) => property.state === filterByState,
+        ),
       );
     }
 
     if (filterByCulture) {
       filtered = filtered.filter((producer) =>
-        producer.properties.some((prop) =>
-          prop.cultures.some((culture) => culture.name === filterByCulture)
-        )
+        producer.properties.some((property) =>
+          property.cultures.some((culture) => culture.name === filterByCulture),
+        ),
       );
     }
 
@@ -65,24 +74,26 @@ export const useDashboard = () => {
   const dashboardData = useMemo(() => {
     const totalProducers = filteredProducers.length;
     const totalFarms = filteredProducers.reduce(
-      (acc, producer) => acc + producer.properties.length,
-      0
-    );
-    const totalHectares = filteredProducers.reduce(
-      (acc, producer) =>
-        acc +
-        producer.properties.reduce(
-          (propAcc, prop) => propAcc + prop.totalArea,
-          0
-        ),
-      0
+      (accumulator, producer) => accumulator + producer.properties.length,
+      0,
     );
 
-    const farmsByState = filteredProducers.reduce((acc, producer) => {
-      producer.properties.forEach((prop) => {
-        acc[prop.state] = (acc[prop.state] || 0) + 1;
+    const totalHectares = filteredProducers.reduce(
+      (accumulator, producer) =>
+        accumulator +
+        producer.properties.reduce(
+          (propertyAccumulator, property) =>
+            propertyAccumulator + property.totalArea,
+          0,
+        ),
+      0,
+    );
+
+    const farmsByState = filteredProducers.reduce((accumulator, producer) => {
+      producer.properties.forEach((property) => {
+        accumulator[property.state] = (accumulator[property.state] || 0) + 1;
       });
-      return acc;
+      return accumulator;
     }, {} as Record<string, number>);
     const pieDataState = Object.entries(farmsByState).map(([id, value]) => ({
       id,
@@ -90,14 +101,15 @@ export const useDashboard = () => {
       label: id,
     }));
 
-    const culturesCount = filteredProducers.reduce((acc, producer) => {
-      producer.properties.forEach((prop) => {
-        prop.cultures.forEach((culture) => {
-          acc[culture.name] = (acc[culture.name] || 0) + 1;
+    const culturesCount = filteredProducers.reduce((accumulator, producer) => {
+      producer.properties.forEach((property) => {
+        property.cultures.forEach((culture) => {
+          accumulator[culture.name] = (accumulator[culture.name] || 0) + 1;
         });
       });
-      return acc;
+      return accumulator;
     }, {} as Record<string, number>);
+
     const pieDataCulture = Object.entries(culturesCount).map(([id, value]) => ({
       id,
       value,
@@ -105,32 +117,35 @@ export const useDashboard = () => {
     }));
 
     const totalArableArea = filteredProducers.reduce(
-      (acc, producer) =>
-        acc +
+      (accumulator, producer) =>
+        accumulator +
         producer.properties.reduce(
-          (propAcc, prop) => propAcc + prop.arableArea,
-          0
+          (propertyAccumulator, property) =>
+            propertyAccumulator + property.arableArea,
+          0,
         ),
-      0
+      0,
     );
     const totalVegetationArea = filteredProducers.reduce(
-      (acc, producer) =>
-        acc +
+      (accumulator, producer) =>
+        accumulator +
         producer.properties.reduce(
-          (propAcc, prop) => propAcc + prop.vegetationArea,
-          0
+          (propertyAccumulator, property) =>
+            propertyAccumulator + property.vegetationArea,
+          0,
         ),
-      0
+      0,
     );
+
     const pieDataLandUse = [
       {
-        id: "Área Agricultável",
-        label: "Área Agricultável",
+        id: 'Área Agricultável',
+        label: 'Área Agricultável',
         value: totalArableArea,
       },
       {
-        id: "Área de Vegetação",
-        label: "Área de Vegetação",
+        id: 'Área de Vegetação',
+        label: 'Área de Vegetação',
         value: totalVegetationArea,
       },
     ];
@@ -147,9 +162,12 @@ export const useDashboard = () => {
 
   const availableCrops = useMemo(() => {
     const crops = new Set<string>();
+
     producers.forEach((producer) => {
-      producer.properties.forEach((prop) => {
-        prop.cultures.forEach((culture) => crops.add(culture.year.toString()));
+      producer.properties.forEach((property) => {
+        property.cultures.forEach((culture) =>
+          crops.add(culture.year.toString()),
+        );
       });
     });
     return Array.from(crops).sort();
@@ -157,33 +175,55 @@ export const useDashboard = () => {
 
   const availableStates = useMemo(() => {
     const states = new Set<string>();
+
     producers.forEach((producer) => {
-      producer.properties.forEach((prop) => states.add(prop.state));
+      producer.properties.forEach((property) => states.add(property.state));
     });
     return Array.from(states).sort();
   }, [producers]);
 
   const availableCultures = useMemo(() => {
     const cultures = new Set<string>();
+
     producers.forEach((producer) => {
-      producer.properties.forEach((prop) => {
-        prop.cultures.forEach((culture) => cultures.add(culture.name));
+      producer.properties.forEach((property) => {
+        property.cultures.forEach((culture) => cultures.add(culture.name));
       });
     });
     return Array.from(cultures).sort();
   }, [producers]);
 
+  const listCollectionCrops = useMemo(
+    () =>
+      createListCollection({
+        items: availableCrops.map((crop) => ({ label: crop, value: crop })),
+      }),
+    [availableCrops],
+  );
+
+  const listCollectionStates = useMemo(
+    () =>
+      createListCollection({
+        items: availableStates.map((crop) => ({ label: crop, value: crop })),
+      }),
+    [availableStates],
+  );
+
+  const listCollectionCultures = useMemo(
+    () =>
+      createListCollection({
+        items: availableCultures.map((crop) => ({ label: crop, value: crop })),
+      }),
+    [availableCultures],
+  );
+
   return {
-    producers,
     ...dashboardData,
-    filterByCrop,
-    setFilterByCrop,
-    filterByState,
+    listCollectionCrops,
+    listCollectionStates,
+    listCollectionCultures,
     setFilterByState,
-    filterByCulture,
     setFilterByCulture,
-    availableCrops,
-    availableStates,
-    availableCultures,
+    setFilterByCrop,
   };
 };

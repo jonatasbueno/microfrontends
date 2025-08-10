@@ -9,7 +9,7 @@ import { store } from '@/store/GlobalStore.ts';
 import { HomePage } from '@/pages/HomePage/HomePage';
 import { DetailsPage } from '@/pages/DetailsPage';
 import { Layout } from '@/components/container/Layout';
-import { DashboardPage } from '@/pages/DashboardPage';
+import { DashboardPage } from '@/pages/DashboardPage/DashboardPage';
 
 const queryClient = new QueryClient();
 export const chakraSystem = createSystem(defaultConfig, {});
