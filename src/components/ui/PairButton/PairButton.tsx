@@ -1,8 +1,6 @@
-import { Box } from "@chakra-ui/react/box";
-import { Button } from "@chakra-ui/react/button";
-import { Flex } from "@chakra-ui/react/flex";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft, faEdit } from "@fortawesome/free-solid-svg-icons";
+import { Box } from '@chakra-ui/react/box';
+import { Button } from '@chakra-ui/react/button';
+import { Flex } from '@chakra-ui/react/flex';
 
 type ButtonProps = {
   title: string;
@@ -19,19 +17,15 @@ export function PairButton({ primary, secondary }: PairButtonProps) {
     <Box bg="bg.surface" p={4} borderRadius="md" boxShadow="sm">
       <Flex justifyContent="space-between" alignItems="center">
         <Button
-          variant="outline"
-          color="primary.500"
-          borderColor="primary.500"
+          color="blue.800"
+          borderColor={'blue.800'}
+          bg="transparent"
           onClick={primary.onClick}
-          leftIcon={<FontAwesomeIcon icon={faArrowLeft} />}
         >
           {primary.title}
         </Button>
-        <Button
-          bg="primary.500"
-          onClick={secondary.onClick}
-          leftIcon={<FontAwesomeIcon icon={faEdit} />}
-        >
+
+        <Button bg="blue.800" onClick={secondary.onClick}>
           {secondary.title}
         </Button>
       </Flex>

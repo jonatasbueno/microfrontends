@@ -7,7 +7,6 @@ import {
   SimpleGrid,
   Heading,
   Button,
-  Flex,
 } from '@chakra-ui/react';
 import { ResponsivePie } from '@nivo/pie';
 import { Card } from '@chakra-ui/react';
@@ -148,15 +147,14 @@ export const DashboardPage: React.FC = () => {
       </Box>
 
       <Box bg="bg.surface" p={4} borderRadius="md" boxShadow="sm" mt={6}>
-        <Flex>
-          <Button
-            variant="outline"
-            colorScheme="primary"
-            onClick={() => navigate('/')}
-          >
-            Voltar para Home
-          </Button>
-        </Flex>
+        <Button
+          color="blue.800"
+          borderColor={'blue.800'}
+          bg="transparent"
+          onClick={() => navigate('/')}
+        >
+          Voltar para Home
+        </Button>
       </Box>
     </Box>
   );
