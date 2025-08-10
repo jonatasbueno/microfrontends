@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router';
 import {
   Box,
   Text,
@@ -8,11 +9,11 @@ import {
   Button,
   Flex,
 } from '@chakra-ui/react';
-import { ResponsivePie, type PieSvgProps } from '@nivo/pie';
-import { useNavigate } from 'react-router';
+import { ResponsivePie } from '@nivo/pie';
 import { Card } from '@chakra-ui/react';
 
 import { useDashboard } from '@/hooks/useDashboard';
+import { commonPieProps } from '@/utils/constants';
 import { SelectCustom, type SelectValue } from './components/Select';
 
 export const DashboardPage: React.FC = () => {
@@ -20,6 +21,9 @@ export const DashboardPage: React.FC = () => {
     totalProducers,
     totalFarms,
     totalHectares,
+    pieDataCulture,
+    pieDataLandUse,
+    pieDataState,
     listCollectionCrops,
     listCollectionStates,
     listCollectionCultures,
@@ -32,95 +36,25 @@ export const DashboardPage: React.FC = () => {
     {
       id: 'crop',
       collention: listCollectionCrops,
-      onSelect: (value: SelectValue) => setFilterByCrop(value.value),
       placeholder: 'Filtrar por Safra',
+      onSelect: (value: SelectValue) => setFilterByCrop(value.value),
+      onClear: () => setFilterByCrop(''),
     },
     {
       id: 'state',
       collention: listCollectionStates,
-      onSelect: (value: SelectValue) => setFilterByState(value.value),
       placeholder: 'Filtrar por Estado',
+      onSelect: (value: SelectValue) => setFilterByState(value.value),
+      onClear: () => setFilterByState(''),
     },
     {
       id: 'culture',
       collention: listCollectionCultures,
-      onSelect: (value: SelectValue) => setFilterByCulture(value.value),
       placeholder: 'Filtrar por Cultura',
+      onSelect: (value: SelectValue) => setFilterByCulture(value.value),
+      onClear: () => setFilterByCulture(''),
     },
   ];
-
-  const commonPieProps: Omit<
-    PieSvgProps<{ id: string; value: number; label: string }>,
-    'width' | 'height' | 'data'
-  > = {
-    margin: { top: 40, right: 80, bottom: 80, left: 80 },
-    innerRadius: 0.5,
-    padAngle: 0.7,
-    cornerRadius: 3,
-    activeOuterRadiusOffset: 8,
-    borderWidth: 1,
-    borderColor: {
-      from: 'color',
-      modifiers: [['darker', 0.2] as ['darker', number]],
-    },
-    arcLinkLabelsSkipAngle: 10,
-    arcLinkLabelsTextColor: '#333333',
-    arcLinkLabelsThickness: 2,
-    arcLinkLabelsColor: { from: 'color' },
-    arcLabelsSkipAngle: 10,
-    arcLabelsTextColor: {
-      from: 'color',
-      modifiers: [['darker', 2] as ['darker', number]],
-    },
-    defs: [
-      {
-        id: 'dots',
-        type: 'patternDots',
-        background: 'inherit',
-        color: 'rgba(255,255,255,0.3)',
-        size: 4,
-        padding: 1,
-        stagger: true,
-      },
-      {
-        id: 'lines',
-        type: 'patternLines',
-        background: 'inherit',
-        color: 'rgba(255,255,255,0.3)',
-        rotation: -45,
-        lineWidth: 6,
-        spacing: 10,
-      },
-    ],
-    fill: [
-      { match: { id: 'ruby' }, id: 'dots' },
-      { match: { id: 'c' }, id: 'dots' },
-      { match: { id: 'go' }, id: 'dots' },
-      { match: { id: 'python' }, id: 'dots' },
-      { match: { id: 'scala' }, id: 'lines' },
-      { match: { id: 'lisp' }, id: 'lines' },
-      { match: { id: 'elixir' }, id: 'lines' },
-      { match: { id: 'javascript' }, id: 'lines' },
-    ],
-    legends: [
-      {
-        anchor: 'bottom',
-        direction: 'row',
-        justify: false,
-        translateX: 0,
-        translateY: 100,
-        itemsSpacing: 0,
-        itemWidth: 100,
-        itemHeight: 18,
-        itemTextColor: '#999',
-        itemDirection: 'left-to-right',
-        itemOpacity: 1,
-        symbolSize: 18,
-        symbolShape: 'circle',
-        effects: [{ on: 'hover', style: { itemTextColor: '#000' } }],
-      },
-    ],
-  };
 
   return (
     <Box p={4}>
@@ -139,7 +73,8 @@ export const DashboardPage: React.FC = () => {
             </Text>
           </Card.Body>
         </Card.Root>
-        <Card.Root variant="outline" bg="green.50" boxShadow="sm">
+
+        <Card.Root variant="outline" bg="blue.50" boxShadow="sm">
           <Card.Body gap="2">
             <Text fontSize="lg" fontWeight="bold">
               Total de Fazendas
@@ -149,7 +84,8 @@ export const DashboardPage: React.FC = () => {
             </Text>
           </Card.Body>
         </Card.Root>
-        <Card.Root variant="outline" bg="purple.50" boxShadow="sm">
+
+        <Card.Root variant="outline" bg="blue.50" boxShadow="sm">
           <Card.Body gap="2">
             <Text fontSize="lg" fontWeight="bold">
               Total de Hectares Registrados
@@ -177,7 +113,8 @@ export const DashboardPage: React.FC = () => {
         <Heading as="h2" size="lg" mb={4}>
           Gráficos
         </Heading>
-        {/* <VStack align="stretch">
+
+        <VStack align="stretch">
           {[
             {
               data: pieDataState,
@@ -194,23 +131,20 @@ export const DashboardPage: React.FC = () => {
               label: 'Relação entre Área Agricultável e Área de Vegetação',
               colors: { scheme: 'paired' },
             },
-          ].map(({ data, label, colors }) => (
+          ].map(({ data, label }) => (
             <Box key={label} height="500px" width="100%">
               <Heading as="h3" size="md" mb={4}>
                 {label}
               </Heading>
+
               {data.length > 0 ? (
-                <ResponsivePie
-                  data={data}
-                  {...commonPieProps}
-                  colors={colors}
-                />
+                <ResponsivePie data={data} {...commonPieProps} />
               ) : (
                 <Text>Não há dados para exibir.</Text>
               )}
             </Box>
           ))}
-        </VStack> */}
+        </VStack>
       </Box>
 
       <Box bg="bg.surface" p={4} borderRadius="md" boxShadow="sm" mt={6}>
